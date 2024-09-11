@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name="cart")
+@Builder
 public class Cart {
 
     @Id
