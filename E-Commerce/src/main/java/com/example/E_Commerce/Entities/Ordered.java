@@ -22,12 +22,13 @@ public class Ordered {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String orderedNo;
+
     @CreationTimestamp
     private Date orderDate;
 
     private int totalCost;
 
-    private int deliveryCharge;
 
     private String cardUsedForPayment;
 

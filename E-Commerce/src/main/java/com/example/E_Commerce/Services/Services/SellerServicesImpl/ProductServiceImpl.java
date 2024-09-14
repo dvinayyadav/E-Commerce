@@ -1,8 +1,12 @@
 package com.example.E_Commerce.Services.Services.SellerServicesImpl;
 
 import com.example.E_Commerce.Converters.ProductConverters;
+import com.example.E_Commerce.Entities.Item;
+import com.example.E_Commerce.Entities.Ordered;
 import com.example.E_Commerce.Entities.Product;
 import com.example.E_Commerce.Entities.Seller;
+import com.example.E_Commerce.Enums.ProductStatus;
+import com.example.E_Commerce.Exceptions.ExceedQuantity;
 import com.example.E_Commerce.Exceptions.InvalidSeller;
 import com.example.E_Commerce.Repositories.ProductRepository;
 import com.example.E_Commerce.Repositories.SellerRepository;
@@ -28,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
     public String addProduct(ProductRequestDto productRequestDto) throws InvalidSeller {
         Seller seller;
         try{
-            seller=sellerRepository.getById(productRequestDto.getSeller().getId());
+            seller=sellerRepository.getById(productRequestDto.getSellerId());
         } catch (Exception e) {
             throw new InvalidSeller("InvalidSeller");
         }
@@ -97,5 +101,20 @@ public class ProductServiceImpl implements ProductService {
 
         }
         return list;
+    }
+
+    @Override
+    public void decreaseQuantity(Item item) throws ExceedQuantity {
+
+            Product product=item.getProduct();
+            int quantity=product.getStockAvailable();
+            int orderedQuantity=item.getRequiredQuantity();
+            if(quantity<orderedQuantity){
+                throw new ExceedQuantity("OUT OF STOCK");
+            }
+            product.setStockAvailable(quantity-orderedQuantity);
+            if(product.getStockAvailable()==0){
+                product.setProductStatus(ProductStatus.OUT_OF_STOCK);
+            }
     }
 }

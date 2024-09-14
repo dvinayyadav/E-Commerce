@@ -10,7 +10,7 @@ public class ProductConverters {
         return Product.builder()
                 .productName(productRequestDto.getProductName())
                 .price(productRequestDto.getPrice())
-                .quantity(productRequestDto.getQuantity())
+                .stockAvailable(productRequestDto.getStockAvailable())
                 .productCategory(productRequestDto.getProductCategory())
                 .productStatus(productRequestDto.getProductStatus())
                 .build();
@@ -21,7 +21,7 @@ public class ProductConverters {
                 .productName(product.getProductName())
                 .price(product.getPrice())
                 .productCategory(product.getProductCategory())
-                .quantity(product.getQuantity())
+                .quantity(product.getStockAvailable())
                 .sellerId(product.getSeller().getId())
                 .productStatus(product.getProductStatus())
                 .build();

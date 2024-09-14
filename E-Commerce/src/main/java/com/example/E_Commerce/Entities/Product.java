@@ -28,7 +28,7 @@ public class Product implements Comparable<Product> {
 
     private int price;
 
-    private int quantity;
+    private int stockAvailable;
 
     @Enumerated(EnumType.STRING)
     ProductCategory productCategory;

@@ -21,7 +21,7 @@ public class ProductRequestDto {
 
     Integer price;
 
-    int quantity;
+    int stockAvailable;
 
 
     ProductCategory productCategory;
@@ -30,5 +30,5 @@ public class ProductRequestDto {
     ProductStatus productStatus;
 
 
-    Seller seller;
+    int  sellerId;
 }
