@@ -87,4 +87,15 @@ public class ProductServiceImpl implements ProductService {
         }
         return productResponseDtoList;
     }
+
+    @Override
+    public List<ProductResponseDto> getProductByPriceAndCategory(int price, String productCategory) {
+        List<Product> productList=productRepository.getProductByPriceAndCategory(price,productCategory);
+        List<ProductResponseDto> list=new ArrayList<>();
+        for(Product product:productList){
+            list.add(ProductConverters.productToProductResponseDto(product));
+
+        }
+        return list;
+    }
 }

@@ -19,4 +19,5 @@ public class SellerRequestDto {
     private String mobileNo;
 
     private String panNo;
+
 }

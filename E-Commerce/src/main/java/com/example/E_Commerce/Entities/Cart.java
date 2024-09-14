@@ -23,6 +23,8 @@ public class Cart {
 
     private int cartTotal;
 
+    private int NumberOfItems;
+
     @OneToOne
     @JoinColumn
     Customer customer;

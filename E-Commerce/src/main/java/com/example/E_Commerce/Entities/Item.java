@@ -10,6 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Entity
 @Table(name="item")
+@Builder
 public class Item {
 
     @Id
@@ -22,7 +23,7 @@ public class Item {
     @JoinColumn
     Cart cart;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn
     Product product;
 

@@ -1,11 +1,11 @@
 package com.example.E_Commerce.Entities;
 
 import com.example.E_Commerce.Enums.CardType;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -18,15 +18,20 @@ public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    private int id;
 
     @Column(unique = true)
     private String cardNo;
 
     private int cvv;
 
+    private Date expiryDate;
+
     @Enumerated(EnumType.STRING)
     private CardType cardType;
+
+
+
 
     @ManyToOne
     @JoinColumn

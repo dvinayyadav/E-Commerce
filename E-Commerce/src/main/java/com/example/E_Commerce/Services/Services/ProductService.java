@@ -20,4 +20,6 @@ public interface ProductService {
     String delProcuctIdInSellerId(int productId, int sellerId);
 
     List<ProductResponseDto> getTopTwoPriceProducts();
+
+    List<ProductResponseDto> getProductByPriceAndCategory(int price, String productCategory);
 }

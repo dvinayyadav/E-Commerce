@@ -46,4 +46,10 @@ public class ProductController {
 
         return productService.getTopTwoPriceProducts();
     }
+
+    @GetMapping("/getProductByPriceAndCategory")
+    public List<ProductResponseDto> getProductByPriceAndCategory(
+            @RequestParam("/price")int price,@RequestParam("productCategory")String productCategory){
+        return productService.getProductByPriceAndCategory(price,productCategory);
+    }
 }

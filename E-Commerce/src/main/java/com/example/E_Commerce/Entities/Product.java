@@ -8,7 +8,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -38,8 +40,8 @@ public class Product implements Comparable<Product> {
     @JoinColumn
     Seller seller;
 
-    @OneToOne(mappedBy = "product",cascade = CascadeType.ALL)
-    Item item;
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    List<Item> item=new ArrayList<>();
 
 
     @Override

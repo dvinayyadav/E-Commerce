@@ -1,11 +1,14 @@
 package com.example.E_Commerce.Services.Services.SellerServicesImpl;
 
+import com.example.E_Commerce.Converters.ProductConverters;
 import com.example.E_Commerce.Converters.SellerConverter;
+import com.example.E_Commerce.Entities.Product;
 import com.example.E_Commerce.Entities.Seller;
 import com.example.E_Commerce.Exceptions.InvalidEmail;
 import com.example.E_Commerce.Exceptions.InvalidPanNo;
 import com.example.E_Commerce.Repositories.SellerRepository;
 import com.example.E_Commerce.RequestDto.SellerRequestDto;
+import com.example.E_Commerce.ResponseDto.ProductResponseDto;
 import com.example.E_Commerce.ResponseDto.SellerResponseDto;
 import com.example.E_Commerce.Services.Services.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +37,14 @@ public class SellerServiceImpl implements SellerService {
         List<Seller> sellerList=sellerRepository.findAll();
         List<SellerResponseDto> responseDtoList=new ArrayList<>();
         for(Seller list:sellerList){
-            responseDtoList.add(SellerConverter.sellerToSellerResponseDto(list));
+            SellerResponseDto sellerResponseDto=SellerConverter.sellerToSellerResponseDto(list);
+            List<Product> productList=list.getProductList();
+            List<ProductResponseDto> productResponseDtoList=new ArrayList<>();
+            for(Product product:productList){
+                productResponseDtoList.add(ProductConverters.productToProductResponseDto(product));
+            }
+            sellerResponseDto.setProductResponseDtos(productResponseDtoList);
+            responseDtoList.add(sellerResponseDto);
         }
         return responseDtoList;
     }
@@ -43,17 +53,37 @@ public class SellerServiceImpl implements SellerService {
     public SellerResponseDto getByPan(String panNo) throws InvalidPanNo {
         SellerResponseDto sellerResponseDto;
         try{
-            return SellerConverter.sellerToSellerResponseDto(sellerRepository.getByPanNo(panNo));
+            Seller seller=sellerRepository.getByPanNo(panNo);
+            sellerResponseDto=SellerConverter.sellerToSellerResponseDto(seller);
+            List<Product> productList=seller.getProductList();
+            List<ProductResponseDto> productResponseDtoList=new ArrayList<>();
+            for(Product product:productList){
+                productResponseDtoList.add(ProductConverters.productToProductResponseDto(product));
+            }
+            sellerResponseDto.setProductResponseDtos(productResponseDtoList);
+
+            return sellerResponseDto;
         } catch (Exception e) {
             throw new InvalidPanNo("The PanNo is not in the Seller List");
         }
+
 
     }
 
     public SellerResponseDto getByEmail(String email) throws InvalidEmail {
         SellerResponseDto sellerResponseDto;
         try{
-            return SellerConverter.sellerToSellerResponseDto(sellerRepository.getByEmail(email));
+            Seller seller=sellerRepository.getByEmail(email);
+            sellerResponseDto=SellerConverter.sellerToSellerResponseDto(seller);
+            List<Product> productList=seller.getProductList();
+            List<ProductResponseDto> productResponseDtoList=new ArrayList<>();
+            for(Product product:productList){
+                productResponseDtoList.add(ProductConverters.productToProductResponseDto(product));
+            }
+            sellerResponseDto.setProductResponseDtos(productResponseDtoList);
+
+            return sellerResponseDto;
+
         } catch (Exception e) {
             throw new InvalidEmail("The Email is not in the Seller List");
         }
@@ -86,7 +116,16 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public SellerResponseDto getById(int id) {
-        return SellerConverter.sellerToSellerResponseDto(sellerRepository.findById(id).get());
+        Seller seller=sellerRepository.findById(id).get();
+        SellerResponseDto sellerResponseDto=SellerConverter.sellerToSellerResponseDto(seller);
+        List<Product> productList=seller.getProductList();
+        List<ProductResponseDto> productResponseDtoList=new ArrayList<>();
+        for(Product product:productList){
+            productResponseDtoList.add(ProductConverters.productToProductResponseDto(product));
+        }
+        sellerResponseDto.setProductResponseDtos(productResponseDtoList);
+
+        return sellerResponseDto;
     }
 
 
