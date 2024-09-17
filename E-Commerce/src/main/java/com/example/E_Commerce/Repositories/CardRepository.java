@@ -14,7 +14,5 @@ public interface CardRepository extends JpaRepository<Card,Integer> {
 
 
     List<Card> getByCardType(CardType cardType);
-
-    Card findByCardNo(String cardNo);
 }
 
